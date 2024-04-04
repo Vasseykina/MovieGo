@@ -57,9 +57,19 @@ public class FilmService {
         return image;
     }
 
-    public void deleteFilm(Long id) {
-        filmRepository.deleteById(id);
-    }
+    public void deleteFilm(User user, Long id) {
+        Film film = filmRepository.findById(id)
+                .orElse(null);
+        if (film != null) {
+            if (film.getUser().getId().equals(user.getId())) {
+                filmRepository.delete(film);
+                log.info("Product with id = {} was deleted", id);
+            } else {
+                log.error("User: {} haven't this product with id = {}", user.getEmail(), id);
+            }
+        } else {
+            log.error("Product with id = {} is not found", id);
+        }    }
 
     public Film getFilmById(Long id) {
         return filmRepository.findById(id).orElse(null);

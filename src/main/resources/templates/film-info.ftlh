@@ -14,8 +14,13 @@
 <b>Год релиза: </b>${films.releaseYear}<br>
 <b>Жанр: </b>${films.genre}<br>
 <hr>
+
+<#if user.isAdmin()>
 <form action="/film/delete/${films.id}" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Удалить фильм из каталога"/>
+
 </form>
+</#if>
 </body>
 </html>

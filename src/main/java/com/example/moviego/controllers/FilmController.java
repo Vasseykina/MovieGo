@@ -3,6 +3,7 @@ package com.example.moviego.controllers;
 import com.example.moviego.models.Film;
 import com.example.moviego.services.FilmService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,34 +21,37 @@ public class FilmController {
     private final FilmService filmService;
 
     @GetMapping("/")
-    public String films(@RequestParam(name = "title", required = false) String title,Principal principal, Model model) {
+    public String films(@RequestParam(name = "title", required = false) String title, Model model,Principal principal) {
         model.addAttribute("films", filmService.listFilm(title));
-        model.addAttribute("user",filmService.getUserByPrincipal(principal));
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "films";
     }
     @GetMapping("/genre")
-    public String filmsByGenre(@RequestParam(name = "genre", required = false) String genre, Model model) {
+    public String filmsByGenre(@RequestParam(name = "genre", required = false) String genre, Model model,Principal principal) {
         model.addAttribute("films", filmService.listFilmByGenre(genre));
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "films";
     }
 
     @GetMapping("/film/{id}")
-    public String filmInfo(@PathVariable Long id, Model model) {
+    public String filmInfo(@PathVariable Long id, Model model,Principal principal) {
         Film film = filmService.getFilmById(id);
         model.addAttribute("films", film);
         model.addAttribute("images", film.getImages());
+        model.addAttribute("user", filmService.getUserByPrincipal(principal));
         return "film-info";
     }
 
     @PostMapping("/film/create")
-    public String createFilm(@RequestParam("file") MultipartFile file, Film film, Principal principal) throws IOException {
+    public String createFilm(@RequestParam("file") MultipartFile file,Principal principal,Film film) throws IOException {
         filmService.saveFilm(principal,film, file);
         return "redirect:/";
     }
 
+
     @PostMapping("/film/delete/{id}")
-    public String deleteFilm(@PathVariable Long id) {
-        filmService.deleteFilm(id);
+    public String deleteFilm(@PathVariable Long id,Principal principal) {
+        filmService.deleteFilm(filmService.getUserByPrincipal(principal), id);
         return "redirect:/";
     }
 }

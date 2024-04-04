@@ -12,6 +12,9 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Выйти"/>
     </form>
+    <#if user.isAdmin()>
+        <a href="/admin">Панель администратора</a>
+    </#if>
 <#else>
     <a href="/login">Войти</a></h1>
 </#if>
@@ -43,7 +46,7 @@
     <a href="/">Вернуться на главную страницу</a>
 </#list>
 
-<#if user.email??>
+<#if user.isAdmin()>
 <hr>
     <h3>Создать новый фильм</h3>
     <form action="/film/create" method="post" enctype="multipart/form-data">
