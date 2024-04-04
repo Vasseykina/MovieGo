@@ -29,9 +29,13 @@
 <h4>Поиск по жанру</h4>
 <form action="/genre" method="get">
     <select name="genre">
-        <option value="драма">Drama</option>
-        <option value="комедия">Comedy</option>
-        <option value="хоррор">Horror</option>
+        <option value="Драма">Drama</option>
+        <option value="Комедия">Comedy</option>
+        <option value="Хоррор">Horror</option>
+        <option value="Документальный фильм">Documentary</option>
+        <option value="Триллер">Thriller</option>
+        <option value="Фэнтези">Fantasy</option>
+        <option value="Фантастика">Fantica</option>
     </select><br><br>
     <input type="submit" value="Поиск"/>
 </form>
@@ -55,9 +59,13 @@
         Год релиза: <input type="text" name="releaseYear"/><br><br>
         Жанр:
         <select name="genre">
-            <option value="драма">Drama</option>
-            <option value="комедия">Comedy</option>
-            <option value="хоррор">Horror</option>
+            <option value="Драма">Drama</option>
+            <option value="Комедия">Comedy</option>
+            <option value="Хоррор">Horror</option>
+            <option value="Документальный фильм">Documentary</option>
+            <option value="Триллер">Thriller</option>
+            <option value="Фэнтези">Fantasy</option>
+            <option value="Фантастика">Fantica</option>
         </select><br><br>
         Постер:  <input type="file" name="file"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
