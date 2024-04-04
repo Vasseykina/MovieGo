@@ -2,13 +2,16 @@ package com.example.moviego.services;
 
 import com.example.moviego.models.Film;
 import com.example.moviego.models.Image;
+import com.example.moviego.models.User;
 import com.example.moviego.repositories.FilmRepository;
+import com.example.moviego.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -16,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FilmService {
     private final FilmRepository filmRepository;
-
+    private final UserRepository userRepository;
     public List<Film> listFilm(String title) {
         if (title != null) return filmRepository.findByTitle(title);
         return filmRepository.findAll();
@@ -26,7 +29,8 @@ public class FilmService {
         if (genre != null) return filmRepository.findByGenre(genre);
         return filmRepository.findAll();
     }
-    public void saveFilm( Film film, MultipartFile file) throws IOException {
+    public void saveFilm(Principal principal, Film film, MultipartFile file) throws IOException {
+        film.setUser(getUserByPrincipal(principal));
         Image image;
         if(file.getSize()!=0){
             image = toImageEntity(file);
@@ -37,6 +41,12 @@ public class FilmService {
         filmFromDb.setPreviewImageId(filmFromDb.getImages().get(0).getId());
         filmRepository.save(film);
     }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return new User();
+        return userRepository.findByEmail(principal.getName());
+    }
+
     private Image toImageEntity(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setName(file.getName());

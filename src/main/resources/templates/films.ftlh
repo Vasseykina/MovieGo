@@ -4,7 +4,17 @@
     <title>MovieGo</title>
 </head>
 <body>
-<h1>MovieGo | <a href="/login">Вход</a></h1>
+<h1>MovieGo</h1>
+
+<#if user.email??>
+    <h3>Имя пользователя: <i>${user.name}</i></h3>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Выйти"/>
+    </form>
+<#else>
+    <a href="/login">Войти</a></h1>
+</#if>
 
 <hr>
 <h4>Онлайн-кинокаталог</h4>
@@ -30,9 +40,11 @@
     </div>
 <#else>
     <h3>Фильмов нет</h3>
-    <a href="/">Вернуться на глвную страницу</a>
+    <a href="/">Вернуться на главную страницу</a>
 </#list>
 
+<#if user.email??>
+<hr>
     <h3>Создать новый фильм</h3>
     <form action="/film/create" method="post" enctype="multipart/form-data">
         Название фильма: <input type="text" name="title"/><br><br>
@@ -48,6 +60,6 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить фильм"/>
     </form>
-
+</#if>
 </body>
 </html>

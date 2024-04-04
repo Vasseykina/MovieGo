@@ -27,7 +27,9 @@ public class Film {
     mappedBy = "film")
     private List<Image> images = new ArrayList<>();
     private Long previewImageId;
-
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private User user;
 
     public void addImageToFilm(Image image) {
         image.setFilm(this);

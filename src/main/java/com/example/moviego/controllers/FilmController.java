@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,8 +20,9 @@ public class FilmController {
     private final FilmService filmService;
 
     @GetMapping("/")
-    public String films(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String films(@RequestParam(name = "title", required = false) String title,Principal principal, Model model) {
         model.addAttribute("films", filmService.listFilm(title));
+        model.addAttribute("user",filmService.getUserByPrincipal(principal));
         return "films";
     }
     @GetMapping("/genre")
@@ -38,8 +40,8 @@ public class FilmController {
     }
 
     @PostMapping("/film/create")
-    public String createFilm(@RequestParam("file") MultipartFile file,Film film) throws IOException {
-        filmService.saveFilm(film, file);
+    public String createFilm(@RequestParam("file") MultipartFile file, Film film, Principal principal) throws IOException {
+        filmService.saveFilm(principal,film, file);
         return "redirect:/";
     }
 
