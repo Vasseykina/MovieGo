@@ -29,7 +29,10 @@
     </div>
 <#else>
     <h3>Фильмов нет</h3>
+    <a href="/">Вернуться на глвную страницу</a>
 </#list>
+
+
 
     <h3>Создать новый фильм</h3>
     <form action="/film/create" method="post" enctype="multipart/form-data">
