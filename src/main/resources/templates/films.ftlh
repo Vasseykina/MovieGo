@@ -4,7 +4,7 @@
     <title>MovieGo</title>
 </head>
 <body>
-<h1>MovieGo</h1>
+<h1>MovieGo | <a href="/login">Вход</a></h1>
 
 <hr>
 <h4>Онлайн-кинокаталог</h4>

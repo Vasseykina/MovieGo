@@ -2,7 +2,7 @@ package com.example.moviego.models;
 
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
+
 
 import javax.persistence.*;
 
