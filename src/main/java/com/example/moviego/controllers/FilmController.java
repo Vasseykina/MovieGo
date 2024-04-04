@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,7 +20,12 @@ public class FilmController {
 
     @GetMapping("/")
     public String films(@RequestParam(name = "title", required = false) String title, Model model) {
-        model.addAttribute("films", filmService.listProducts(title));
+        model.addAttribute("films", filmService.listFilm(title));
+        return "films";
+    }
+    @GetMapping("/genre")
+    public String filmsByGenre(@RequestParam(name = "genre", required = false) String genre, Model model) {
+        model.addAttribute("films", filmService.listFilmByGenre(genre));
         return "films";
     }
 
@@ -28,7 +36,7 @@ public class FilmController {
     }
 
     @PostMapping("/film/create")
-    public String createFilm(Film film) {
+    public String createFilm(Film film) throws IOException {
         filmService.saveFilm(film);
         return "redirect:/";
     }

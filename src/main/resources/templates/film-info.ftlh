@@ -9,5 +9,10 @@
 <b>Название фильма: </b>${films.title}<br>
 <b>Описание : </b>${films.description}<br>
 <b>Год релиза: </b>${films.releaseYear}<br>
+<b>Жанр: </b>${films.genre}<br>
+<hr>
+<form action="/film/delete/${films.id}" method="post">
+    <input type="submit" value="Удалить фильм из каталога"/>
+</form>
 </body>
 </html>

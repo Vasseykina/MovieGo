@@ -12,6 +12,13 @@
     Поиск по названию фильма: <input type="text" name="title">
     <input type="submit" value="Поиск"/>
 </form>
+
+<h4>Поиск по жанру</h4>
+<form action="/genre" method="get">
+    Поиск по жанру: <input type="text" name="genre">
+    <input type="submit" value="Поиск"/>
+</form>
+
 <#list films as film>
     <div>
         <p><b>${film.title}</b> ${film.releaseYear} год | <a href="/film/${film.id}">Подробнее...</a></p>
@@ -25,6 +32,7 @@
         Название фильма: <input type="text" name="title"/><br><br>
         Описание : <input type="text" name="description"/><br><br>
         Год релиза: <input type="text" name="releaseYear"/><br><br>
+        Жанр:<input type="text" name="genre"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить фильм"/>
     </form>

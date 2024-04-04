@@ -5,29 +5,35 @@ import com.example.moviego.repositories.FilmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class FilmService {
-    private final FilmRepository FilmRepository;
+    private final FilmRepository filmRepository;
 
-    public List<Film> listProducts(String title) {
-        if (title != null) return FilmRepository.findByTitle(title);
-        return FilmRepository.findAll();
+    public List<Film> listFilm(String title) {
+        if (title != null) return filmRepository.findByTitle(title);
+        return filmRepository.findAll();
     }
 
-    public void saveFilm(Film film) {
+    public List<Film> listFilmByGenre(String genre) {
+        if (genre != null) return filmRepository.findByGenre(genre);
+        return filmRepository.findAll();
+    }
+    public void saveFilm( Film film) throws IOException {
         log.info("Saving new {}", film);
-        FilmRepository.save(film);
+        filmRepository.save(film);
     }
     public void deleteFilm(Long id) {
-        FilmRepository.deleteById(id);
+        filmRepository.deleteById(id);
     }
 
     public Film getFilmById(Long id) {
-        return FilmRepository.findById(id).orElse(null);
+        return filmRepository.findById(id).orElse(null);
     }
 }

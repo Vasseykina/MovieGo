@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "films")
 @Data
@@ -18,6 +19,7 @@ public class Film {
     private String releaseYear;
     @Column (name = "description")
     private String description;
-
+    @Column(name = "genre")
+    private String genre;
 
 }
