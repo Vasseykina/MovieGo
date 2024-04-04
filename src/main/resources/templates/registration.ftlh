@@ -7,7 +7,7 @@
             font-family: 'Montserrat', sans-serif; /* Используемый шрифт для всего текста */
             margin: 0; /* Убираем отступы */
             padding: 0; /* Убираем внутренние отступы */
-            background-image: linear-gradient(to bottom right, #fcfaf7, #ded1c1); /* Градиентный фон */
+            background-image: linear-gradient(to bottom right, #efe9dc, #ad988a); /* Градиентный фон */
             text-align: center; /* Выравниваем текст по центру */
         }
         h1 {

@@ -20,6 +20,10 @@
             text-transform: uppercase;
             font-size: 20px;
         }
+        h3 {
+            text-transform: uppercase;
+            font-size: 20px;
+        }
         img {
             height: 400px;
             width: auto;
@@ -110,11 +114,10 @@
         <a href="/admin">Панель администратора</a>
     </#if>
 <#else>
-    <a href="/login">Войти</a>
+    <a href="/login">Войти </a>
 </#if>
 
 <hr>
-<h4>Онлайн-кинокаталог</h4>
 <form action="/" method="get">
     Поиск по названию фильма: <input type="text" name="title">
     <input type="submit" value="Поиск"/>
@@ -137,9 +140,6 @@
 <#list films as film>
     <div class="film-container">
         <img src="/images/${film.previewImageId}" alt="Фото фильма"/>
-        <div class="film-description">
-            <p>${film.description}</p> <!-- Описание фильма -->
-        </div>
         <div class="film-info">
             <p><b>${film.title}</b> ${film.releaseYear} год</p>
             <p><a href="/film/${film.id}">Подробнее...</a></p>
@@ -169,7 +169,8 @@
         </select><br><br>
         Постер:  <input type="file" name="file"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Добавить фильм"/>
+        <input type="submit" value="Добавить фильм" style="font-size: 24px;">
+        <h3>  </h3>
     </form>
 </#if>
 </body>
