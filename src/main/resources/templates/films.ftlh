@@ -15,7 +15,11 @@
 
 <h4>Поиск по жанру</h4>
 <form action="/genre" method="get">
-    Поиск по жанру: <input type="text" name="genre">
+    <select name="genre">
+        <option value="драма">Drama</option>
+        <option value="комедия">Comedy</option>
+        <option value="хоррор">Horror</option>
+    </select><br><br>
     <input type="submit" value="Поиск"/>
 </form>
 
@@ -32,7 +36,12 @@
         Название фильма: <input type="text" name="title"/><br><br>
         Описание : <input type="text" name="description"/><br><br>
         Год релиза: <input type="text" name="releaseYear"/><br><br>
-        Жанр:<input type="text" name="genre"/><br><br>
+        Жанр:
+        <select name="genre">
+            <option value="драма">Drama</option>
+            <option value="комедия">Comedy</option>
+            <option value="хоррор">Horror</option>
+        </select><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить фильм"/>
     </form>
