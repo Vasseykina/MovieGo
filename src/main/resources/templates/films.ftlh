@@ -25,14 +25,13 @@
 
 <#list films as film>
     <div>
-        <p><b>${film.title}</b> ${film.releaseYear} год | <a href="/film/${film.id}">Подробнее...</a></p>
+        <img src="/images/${film.previewImageId}" width="200px" height="300px"/><br><br>
+        <p><b>${film.title}</b> ${film.releaseYear} год  | <a href="/film/${film.id}">Подробнее...</a></p>
     </div>
 <#else>
     <h3>Фильмов нет</h3>
     <a href="/">Вернуться на глвную страницу</a>
 </#list>
-
-
 
     <h3>Создать новый фильм</h3>
     <form action="/film/create" method="post" enctype="multipart/form-data">
@@ -45,6 +44,7 @@
             <option value="комедия">Comedy</option>
             <option value="хоррор">Horror</option>
         </select><br><br>
+        Постер:  <input type="file" name="file"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить фильм"/>
     </form>

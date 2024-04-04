@@ -3,6 +3,8 @@ package com.example.moviego.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -17,9 +19,19 @@ public class Film {
     private String title;
     @Column(name="releaseYear")
     private String releaseYear;
-    @Column (name = "description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
     @Column(name = "genre")
     private String genre;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
+    mappedBy = "film")
+    private List<Image> images = new ArrayList<>();
+    private Long previewImageId;
+
+
+    public void addImageToFilm(Image image) {
+        image.setFilm(this);
+        images.add(image);
+    }
 
 }

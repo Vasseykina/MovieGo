@@ -31,13 +31,15 @@ public class FilmController {
 
     @GetMapping("/film/{id}")
     public String filmInfo(@PathVariable Long id, Model model) {
-        model.addAttribute("films", filmService.getFilmById(id));
+        Film film = filmService.getFilmById(id);
+        model.addAttribute("films", film);
+        model.addAttribute("images", film.getImages());
         return "film-info";
     }
 
     @PostMapping("/film/create")
-    public String createFilm(Film film) throws IOException {
-        filmService.saveFilm(film);
+    public String createFilm(@RequestParam("file") MultipartFile file,Film film) throws IOException {
+        filmService.saveFilm(film, file);
         return "redirect:/";
     }
 

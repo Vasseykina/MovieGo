@@ -1,6 +1,7 @@
 package com.example.moviego.services;
 
 import com.example.moviego.models.Film;
+import com.example.moviego.models.Image;
 import com.example.moviego.repositories.FilmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +26,27 @@ public class FilmService {
         if (genre != null) return filmRepository.findByGenre(genre);
         return filmRepository.findAll();
     }
-    public void saveFilm( Film film) throws IOException {
-        log.info("Saving new {}", film);
+    public void saveFilm( Film film, MultipartFile file) throws IOException {
+        Image image;
+        if(file.getSize()!=0){
+            image = toImageEntity(file);
+            image.setPreviewImage(true);
+            film.addImageToFilm(image);
+        }
+        Film filmFromDb = filmRepository.save(film);
+        filmFromDb.setPreviewImageId(filmFromDb.getImages().get(0).getId());
         filmRepository.save(film);
     }
+    private Image toImageEntity(MultipartFile file) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
+    }
+
     public void deleteFilm(Long id) {
         filmRepository.deleteById(id);
     }

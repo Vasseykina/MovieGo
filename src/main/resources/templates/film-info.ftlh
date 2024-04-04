@@ -6,6 +6,9 @@
 <body>
 <h1>MovieGo</h1><hr>
 <h4>Подробная информация о фильме</h4>
+<#list images as img>
+    <img src="/images/${img.id}" height="60px"/><br><br>
+</#list>
 <b>Название фильма: </b>${films.title}<br>
 <b>Описание : </b>${films.description}<br>
 <b>Год релиза: </b>${films.releaseYear}<br>
